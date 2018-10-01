@@ -5,7 +5,7 @@
 1. Describe how __React Router__ allows nesting routes
 2. Explain how to organize routes in a standard __React & React Router__ application
 
-## Overview
+## Overview/Lecture
 
 In the previous lesson, we saw how to have routes dynamically render different components. However, as you may have noticed, each time we rendered one component, our previous component disappeared. In this lesson, we'll see how routes can be used to specify multiple components to render.  
 
@@ -29,7 +29,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import MoviesList from '../components/MoviesList';
 
-const MoviesPage = ({ movies }) => 
+const MoviesPage = ({ movies }) =>
   <div>
     <MoviesList movies={movies} />
   </div>;
@@ -45,7 +45,7 @@ export default connect(mapStateToProps)(MoviesPage);
 
 We are using the __mapStateToProps()__ function to pull the `movies` property from our store's state and attach it to the `props` of this component. As you see, our __MoviesPage__ just renders out a __MoviesList__ component. In this case, our __MoviesPage__ component is purely presentational.
 
-Let's create our MoviesList component to render __React Router__ Links for each movie. 
+Let's create our MoviesList component to render __React Router__ Links for each movie.
 
 ```javascript
 // ./src/components/MoviesList.js
@@ -53,10 +53,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const MoviesList = ({ movies }) => {
-  const renderMovies = movies.map(movie => 
+  const renderMovies = movies.map(movie =>
     <Link key={movie.id} to={`/movies/${movie.id}`}>{movie.title}</Link>
   );
-  
+
   return (
     <div>
       {renderMovies}
@@ -81,7 +81,7 @@ Let's create our __MoviesShow__ component. Later on, we will see that this compo
 import React from 'react';
 
 const MoviesShow = props => {
-  
+
   return (
     <div>
       <h3>Movies Show Component!</h3>
@@ -102,7 +102,7 @@ import { connect } from 'react-redux';
 import MoviesList from '../components/MoviesList';
 import MovieShow from './MovieShow';
 
-const MoviesPage = ({ match, movies }) => 
+const MoviesPage = ({ match, movies }) =>
   <div>
     <MoviesList movies={movies} />
     <Route path={`${match.url}/:movieId`} component={MovieShow}/>
@@ -122,7 +122,7 @@ export default connect(mapStateToProps)(MoviesPage);
 
 With the `MoviesPage` container we are now adding two `Route` components. You will notice that we are inheriting `match` from `this.props` this is a POJO that contains the current url. so we are able to show stuff depending on what the `match.url` returns. In the 2nd `Route` component we are defining a path of `${match.url}/:movieId`. This will load the MovieShow component when the url looks something like `movies/1`.
 
-Lets go ahead and make sure that our MoviesList component has links to get to this nested route. 
+Lets go ahead and make sure that our MoviesList component has links to get to this nested route.
 
 ```javascript
 // ./src/components/MoviesList.js
@@ -130,10 +130,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const MoviesList = ({ movies }) => {
-  const renderMovies = movies.map(movie => 
+  const renderMovies = movies.map(movie =>
     <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
   );
-  
+
   return (
     <div>
       {renderMovies}
